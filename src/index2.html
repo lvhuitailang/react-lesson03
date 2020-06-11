@@ -6,9 +6,9 @@
 </head>
 <body>
 <div class="container">
-    <button type="button" onclick="store.dispacher({type:'SUB',n:1})">-</button>
+    <button type="button" onclick="store.dispatch({type:'SUB',n:1})">-</button>
     <span id="countDisplay">10</span>
-    <button type="button" onclick="store.dispacher({type:'ADD',n:1})">+</button>
+    <button type="button" onclick="store.dispatch({type:'ADD',n:1})">+</button>
     <div class="newSpan">
         <span id="countDisplay2">0</span>
     </div>
@@ -23,6 +23,9 @@
     }
 
     let changeState = (state,action)=>{
+        if(!state){
+            return countState;
+        }
         switch (action.type){
             case 'SUB':
                 return{
@@ -41,25 +44,27 @@
         }
     }
 
-    let createStore = (state,changeState)=>{
+    let createStore = (changeState)=>{
+        let state = null;
         let getState = ()=>state;
         let listeners = [];
         let subscribe = (listener)=>{
             listeners.push(listener);
         }
 
-        let dispacher = (action)=>{
+        let dispatch = (action)=>{
             state = changeState(state,action);
             listeners.forEach(item=>item());
         }
+        dispatch();
         return {
             getState,
-            dispacher,
+            dispatch,
             subscribe
         };
 
     }
-    let store = createStore(countState,changeState);
+    let store = createStore(changeState);
     let renderCount = ()=>{
         countDisplay.innerHTML = store.getState().count;
     }
@@ -69,10 +74,8 @@
     store.subscribe(renderCount);
     store.subscribe(renderCount2);
     //first render
-    renderCount(countState);
-    function add(x){
-        return x+y;
-    }
+    renderCount(store.getState().count);
+    renderCount2(store.getState().count);
 
 
 
