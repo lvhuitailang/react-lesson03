@@ -1,11 +1,17 @@
 import React, {Component} from 'react';
 
+import store from './store'
+
+import{
+    CartList
+} from "./componets";
+
+
 class App extends Component {
     render() {
         return (
             <div>
-                App
-                
+                <CartList store={store}/>
             </div>
         );
     }
