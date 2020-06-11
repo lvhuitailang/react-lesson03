@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>redux learn</title>
+</head>
+<body>
+<div class="container">
+    <button type="button" onclick="store.dispatch({type:'SUB',n:1})">-</button>
+    <span id="countDisplay">10</span>
+    <button type="button" onclick="store.dispatch({type:'ADD',n:1})">+</button>
+    <div class="newSpan">
+        <span id="countDisplay2">0</span>
+    </div>
+</div>
+
+</body>
+<script src="https://cdn.bootcdn.net/ajax/libs/redux/4.0.5/redux.min.js"></script>
+<script>
+    let countDisplay = document.querySelector('#countDisplay');
+    let countDisplay2 = document.querySelector('#countDisplay2');
+    let countState = {
+        count:5
+    }
+
+    let reducer = (state,action)=>{
+        console.log(action)
+        if(!state){
+            return countState;
+        }
+        switch (action.type){
+            case 'SUB':
+                return{
+                    ...state,
+                    count:state.count-action.n
+                }
+            case 'ADD':
+                return{
+                    ...state,
+                    count:state.count+action.n
+                }
+            default : return{
+                ...state
+            };
+
+        }
+    }
+
+   /* let createStore = (reducer)=>{
+        let state = null;
+        let getState = ()=>state;
+        let listeners = [];
+        let subscribe = (listener)=>{
+            listeners.push(listener);
+        }
+
+        let dispatch = (action)=>{
+            state = reducer(state,action);
+            listeners.forEach(item=>item());
+        }
+        dispatch({});
+        return {
+            getState,
+            dispatch,
+            subscribe
+        };
+
+    }*/
+    let store = Redux.createStore(reducer);
+    let renderCount = ()=>{
+        countDisplay.innerHTML = store.getState().count;
+    }
+    let renderCount2 = ()=>{
+        countDisplay2.innerHTML = store.getState().count*2;
+    }
+    store.subscribe(renderCount);
+    store.subscribe(renderCount2);
+    //first render
+    renderCount(countState);
+
+
+</script>
+</html>
