@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>redux learn</title>
+</head>
+<body>
+<div class="container">
+    <button type="button" onclick="store.dispacher({type:'SUB',n:1})">-</button>
+    <span id="countDisplay">10</span>
+    <button type="button" onclick="store.dispacher({type:'ADD',n:1})">+</button>
+    <div class="newSpan">
+        <span id="countDisplay2">0</span>
+    </div>
+</div>
+
+</body>
+<script>
+    let countDisplay = document.querySelector('#countDisplay');
+    let countDisplay2 = document.querySelector('#countDisplay2');
+    let countState = {
+        count:5
+    }
+
+    let changeState = (state,action)=>{
+        switch (action.type){
+            case 'SUB':
+                return{
+                    ...state,
+                    count:state.count-action.n
+                }
+            case 'ADD':
+                return{
+                    ...state,
+                    count:state.count+action.n
+                }
+            default : break;
+
+        }
+    }
+
+    let createStore = (state,changeState)=>{
+        let getState = ()=>state;
+        let listeners = [];
+        let subscribe = (listener)=>{
+            listeners.push(listener);
+        }
+
+        let dispacher = (action)=>{
+            state = changeState(state,action);
+            listeners.forEach(item=>item());
+        }
+        return {
+            getState,
+            dispacher,
+            subscribe
+        };
+
+    }
+    let store = createStore(countState,changeState);
+    let renderCount = ()=>{
+        countDisplay.innerHTML = store.getState().count;
+    }
+    let renderCount2 = ()=>{
+        countDisplay2.innerHTML = store.getState().count*2;
+    }
+    store.subscribe(renderCount);
+    store.subscribe(renderCount2);
+    //first render
+    renderCount(countState);
+    function add(x){
+        return x+y;
+    }
+
+
+
+</script>
+</html>

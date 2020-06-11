@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>redux learn</title>
+</head>
+<body>
+<div class="container">
+    <button type="button" onclick="dispacher({type:'SUB',n:1})">-</button>
+    <span id="countDisplay">10</span>
+    <button type="button" onclick="dispacher({type:'ADD',n:1})">+</button>
+</div>
+
+</body>
+<script>
+    let countDisplay = document.querySelector('#countDisplay');
+    let countState = {
+        count:5
+    }
+    let renderCount = (state)=>{
+        countDisplay.innerHTML = state.count;
+
+    }
+    renderCount(countState);
+
+    let changeState = (action)=>{
+        switch (action.type){
+            case 'SUB':
+                countState.count -= action.n;
+                break;
+            case 'ADD':
+                countState.count += action.n;
+                break;
+            default : break;
+
+        }
+
+
+    }
+
+
+    let dispacher = (action)=>{
+        changeState(action);
+        renderCount(countState);
+    }
+
+</script>
+</html>
