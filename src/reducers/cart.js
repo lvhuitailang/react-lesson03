@@ -14,6 +14,7 @@ const initState = [{
 
 
 export default (state = initState,action)=>{
+    console.log(state)
     let tempItem = {};
     if(action && action.type && action.payload){
         let tempArrState = state.filter(v=>{
