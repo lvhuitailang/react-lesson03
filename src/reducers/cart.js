@@ -34,6 +34,7 @@ export default (state = initState,action)=>{
     }
 
 }
+
 /*
 //js里面 foreach filter等等，不能改变原来数组的引用地址，只能改变每个item里面的值
 export default (state = initState,action)=>{
