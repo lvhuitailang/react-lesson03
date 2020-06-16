@@ -1,0 +1,7 @@
+1.创建reducers
+2.合并reducers并导出
+3.createStore
+4.Provider store={store}
+5.在需要使用redux数据的组件里面connect(mapStateToProps,{...actionCreators})(YourComponets)
+6.创建actions,或者actionCreators
+7.修改reducers
