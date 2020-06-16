@@ -50,11 +50,21 @@ export default (state = initState,action)=>{
     }
     switch (action.type) {
         case actionType.CART_AMOUNT_INCREASEMENT:
-            tempItem.amount =  tempItem.amount+1;
-            return state;
+            return state.map(item=>{
+                if(item.id === action.payload.id){
+                    item.amount+=1;
+                }
+                return item;
+            })
         case actionType.CART_AMOUNT_DECREASEMENT:
             tempItem.amount =  tempItem.amount-1;
             return state;
+            return state.map(item=>{
+                if(item.id === action.payload.id){
+                    item.amount-=1;
+                }
+                return item;
+            })
         default:return state;
     }
 
