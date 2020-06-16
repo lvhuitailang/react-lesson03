@@ -47,9 +47,9 @@ class CartList extends Component {
                                      <td>{item.title}</td>
                                      <td>{item.price}</td>
                                      <td>
-                                         <button onClick={this.props.reduce.bind(this,item.id)}>-</button>
+                                         <button onClick={this.props.decreament.bind(this,item.id)}>-</button>
                                          <span>{item.amount}</span>
-                                         <button onClick={this.props.add.bind(this,item.id)}>+</button>
+                                         <button onClick={this.props.increament.bind(this,item.id)}>+</button>
                                      </td>
                                      <td></td>
                                 </tr>
@@ -69,7 +69,7 @@ const mapStateToProp = (state)=>{
     }
 }
 
-const mapDispatchToProps = (dispatch)=>{
+/*const mapDispatchToProps = (dispatch)=>{
     return {
         add:(id)=>{
             return dispatch(increament(id))
@@ -78,6 +78,7 @@ const mapDispatchToProps = (dispatch)=>{
             return dispatch(decreament(id))
         }
     }
-}
+}*/
+//这里的action用action creator的格式写的，所以可以直接传，不用像上面那样封装,redux会自动帮我们处理了
 
-export default connect(mapStateToProp,mapDispatchToProps)(CartList);
+export default connect(mapStateToProp,{increament,decreament})(CartList);
