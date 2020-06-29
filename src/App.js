@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 
 import store from './store'
 
+import {Provider} from 'react-redux'
+
 import{
     CartList
 } from "./componets";
@@ -10,9 +12,11 @@ import{
 class App extends Component {
     render() {
         return (
-            <div>
-                <CartList store={store}/>
-            </div>
+            <Provider store={store}>
+                <div>
+                    <CartList />
+                </div>
+            </Provider>
         );
     }
 }
