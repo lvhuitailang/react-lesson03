@@ -18,3 +18,15 @@ export const decreament = (id)=>{
     }
 
 }
+export const decreamentAsync = (id)=>{
+    setTimeout(()=>{
+        return {
+            type:actionType.CART_AMOUNT_DECREASEMENT,
+            payload:{
+                id:id
+            }
+        }
+    },2000)
+
+
+}

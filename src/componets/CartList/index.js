@@ -1,29 +1,14 @@
 import React, {Component} from 'react';
 
-import {increament,decreament} from '../../actions/cart'
+import {increament,decreament,decreamentAsync} from '../../actions/cart'
 
 import {connect} from 'react-redux'
 
 class CartList extends Component {
     constructor() {
         super();
-     /*   this.state = {
-            cartList:[]
-        }*/
     }
 
-/*    listenerSetState = ()=>{
-        this.setState(()=>{
-            return {
-                cartList:this.props.cartList
-            }
-        })
-    }
-
-    componentDidMount() {
-      this.listenerSetState();
-      // this.props.store.subscribe(this.listenerSetState);
-    }*/
 
     render() {
         console.log(this.props)
@@ -47,6 +32,7 @@ class CartList extends Component {
                                      <td>{item.title}</td>
                                      <td>{item.price}</td>
                                      <td>
+                                         <button onClick={this.props.decreamentAsync.bind(this,item.id)}>过一会再减</button>
                                          <button onClick={this.props.decreament.bind(this,item.id)}>-</button>
                                          <span>{item.amount}</span>
                                          <button onClick={this.props.increament.bind(this,item.id)}>+</button>
@@ -81,4 +67,4 @@ const mapStateToProp = (state)=>{
 }*/
 //这里的action用action creator的格式写的，所以可以直接传，不用像上面那样封装,redux会自动帮我们处理了
 
-export default connect(mapStateToProp,{increament,decreament})(CartList);
+export default connect(mapStateToProp,{increament,decreament,decreamentAsync})(CartList);
