@@ -1,23 +1,21 @@
 import React, {Component} from 'react';
-
 import {connect} from 'react-redux'
 
 import BlogItem from "./BlogItem";
-import {getPosts} from '../../services/index'
+import {fetchBlogList} from '../../actions/blog'
 
 class BlogList extends Component {
 
     componentDidMount() {
-        getPosts().then(res=>{
-            console.log(res)
-        })
+        this.props.fetchBlogList();
     }
 
     render() {
         console.log(this.props)
         const {
             list,
-            isloading
+            isloading,
+            errorMsg
         } = this.props;
 
         return (
@@ -25,22 +23,27 @@ class BlogList extends Component {
             ?
             <div>loading...</div>
             :
-            <ul>
-                {list.map(item=>{
-                    return (
-                        <BlogItem key={item.id} {...item}></BlogItem>
-                    )
-                })}
-            </ul>
+                errorMsg && errorMsg!=''
+                ?
+                <div>{errorMsg}</div>
+                :
+                <ul>
+                    {list.map(item=>{
+                        return (
+                            <BlogItem key={item.id} {...item}></BlogItem>
+                        )
+                    })}
+                </ul>
         );
     }
 }
 
 const mapToProps = state => ({
     list:state.blog.list,
-    isloading:state.blog.isloading
+    isloading:state.blog.isloading,
+    errorMsg:state.blog.errorMsg
 
 
 })
 
-export default connect(mapToProps)(BlogList);
+export default connect(mapToProps, {fetchBlogList})(BlogList);

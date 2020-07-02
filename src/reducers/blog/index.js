@@ -1,3 +1,5 @@
+import actionType from "../../actions/actionType";
+
 const initState = {
     list:[{
         "userId": 1,
@@ -11,12 +13,33 @@ const initState = {
             "title": "qui est esse",
             "body": "est rerum tempore vitae\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\nfugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\nqui aperiam non debitis possimus qui neque nisi nulla"
         }],
-    isloading:false
+    isloading:false,
+    errorMsg:''
 
 }
 
 export default (state = initState,action)=>{
     switch (action.type) {
+        case actionType.START_FECCH_BLOG_LIST:
+            return{
+                ...state,
+                isloading: true,
+                errorMsg:''
+            }
+        case actionType.SUCCESS_FECCH_BLOG_LIST:
+            return{
+                ...state,
+                isloading: false,
+                list:action.payload.list,
+                errorMsg:''
+            }
+        case actionType.FAILED_FECCH_BLOG_LIST:
+            return {
+                ...state,
+                isloading: false,
+                errorMsg: action.payload.errorMsg
+            }
+
         default:
             return state;
     }

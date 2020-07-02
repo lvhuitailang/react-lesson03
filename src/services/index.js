@@ -5,5 +5,5 @@ const ajax = Axios.create({
 })
 
 export const getPosts = ()=>{
-    return ajax.get('posts')
+    return ajax.get('posts');
 }
