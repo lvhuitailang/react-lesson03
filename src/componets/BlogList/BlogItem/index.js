@@ -4,8 +4,8 @@ class BlogItem extends Component {
     render() {
         return (
             <li>
-                BlogItem
-
+                <h3>{this.props.title}</h3>
+                <p>{this.props.body}</p>
             </li>
         );
     }
