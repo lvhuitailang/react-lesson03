@@ -1,10 +1,14 @@
 import React, {Component} from 'react';
+import {NavLink as Link,Route} from 'react-router-dom'
+
+
 
 class Article extends Component {
     render() {
         return (
             <div>
-                article
+                <Link to={'/article/1'}>文章1</Link>
+                <Link to={'/article/2'}>文章2</Link>
             </div>
         );
     }
